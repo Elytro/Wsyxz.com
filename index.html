@@ -1,1 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无损音乐,爱乐吧(WAV/APE/MP3/FLAC)无损音乐免费下载</title>
+    <meta name="description" content="无损音乐网(wsyxz.com)是免费提供无损音乐下载的网站,收录的无损音乐格式有flac、ape、wav、dsd、dts等,专注于Ape音乐、Flac音乐以及Wav等各类高品质无损音乐的免费下载,免费分享flac格式无损音乐的网站，为广大无损音乐发烧友提供资源下载平台，每首无损音乐都是精心挑选，真正免费的无损音乐下载网站，致力于做国内最好的无损音乐下载网站。">
+    <meta name="keywords" content="无损音乐,ape,WAV,flac,ape格式,WAV格式,flac格式,ape音乐下载,WAV音乐下载,flac音乐下载,音乐下载,歌曲下载,无损音乐下载,无损音乐下载,无损音乐网,无损音乐网站,无损音乐免费下载,无损音乐免费下载,无损音乐下载网站">  
+    <!-- Bootstrap CSS -->
+    <link href="https://unpkg.com/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://unpkg.com/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Element UI CSS -->
+    <link href="https://unpkg.com/element-ui@2.15.14/lib/theme-chalk/index.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #409EFF;
+            --secondary-color: #67C23A;
+            --danger-color: #F56C6C;
+            --warning-color: #E6A23C;
+            --info-color: #909399;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 导航栏样式 */
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 0;
+            transition: all 0.3s ease;
+            z-index: 1030;
+        }
+
+        .navbar-custom.scrolled {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .brand-logo:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(10deg);
+        }
+
+        .brand-logo img {
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-custom .navbar-brand {
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-custom .navbar-brand:hover {
+            transform: translateX(5px);
+        }
+
+        .navbar-custom .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            margin: 0 0.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar-custom .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.3s ease;
+        }
+
+        .navbar-custom .nav-link:hover::before {
+            left: 0;
+        }
+
+        .navbar-custom .nav-link:hover,
+        .navbar-custom .nav-link.active {
+            color: #fff !important;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-custom .nav-link i {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-custom .nav-link:hover i {
+            transform: scale(1.1);
+        }
+
+        /* 移动端样式优化 */
+        .navbar-custom .navbar-toggler {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 4px 8px;
+        }
+
+        .navbar-custom .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+        }
+
+        .navbar-custom .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-custom .navbar-collapse {
+                background: rgba(0, 0, 0, 0.2);
+                backdrop-filter: blur(10px);
+                border-radius: 15px;
+                padding: 1rem;
+                margin-top: 0.5rem;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .navbar-custom .nav-link {
+                border-radius: 15px;
+                margin: 0.25rem 0;
+            }
+        }
+
+        /* 主要内容区域 */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+            margin-top: 80px;
+        }
+
+        /* Logo和标题样式 */
+        .brand-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 20px;
+        }
+
+        .brand-title {
+            font-size: 3rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .brand-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        /* 搜索框样式 */
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .search-box {
+            position: relative;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .search-box:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 5rem 1.2rem 2rem;
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            background: transparent;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, var(--primary-color), #66b1ff);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: linear-gradient(45deg, #66b1ff, var(--primary-color));
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* 快捷搜索标签 */
+        .search-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .search-tag {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .search-tag:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* 微信群二维码区域 */
+        .wechat-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .qr-card {
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .qr-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .qr-image {
+            width: 180px;
+            height: 180px;
+            background: #fff;
+            border-radius: 15px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        .qr-image:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .qr-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .qr-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .qr-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .qr-description {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* 页脚样式 */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 2rem 0 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        
+
+        .icp-info {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .icp-info a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .icp-info a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        /* 动画 */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .brand-title {
+                font-size: 2rem;
+            }
+            
+            .brand-subtitle {
+                font-size: 1rem;
+            }
+            
+            .search-container {
+                max-width: 100%;
+            }
+            
+            .qr-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+            
+            .qr-image {
+                width: 150px;
+                height: 150px;
+                padding: 4px;
+            }
+            
+            
+        }
+
+        @media (max-width: 480px) {
+            .brand-title {
+                font-size: 1.5rem;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                padding: 6px;
+            }
+            
+            .logo img {
+                border-radius: 15px;
+            }
+            
+            .wechat-section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+  
+
+    <!-- 主要内容 -->
+    <main class="main-content" id="home">
+        <!-- Logo和标题 -->
+        <div class="brand-section">
+            <div class="logo">
+                <img src="image.png" alt="Wusun搜索Logo">
+            </div>
+            <h1 class="brand-title">无损音乐</h1>
+            <p class="brand-subtitle">支持FLAC、ALAC、DSD等高品质音频格式在线转码</p>
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="search-container" id="search">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="请输入您需要搜索软件名称..." id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+            <div class="search-tags">
+                <span class="search-tag" onclick="quickSearch('人工智能')">人工智能</span>
+                <span class="search-tag" onclick="quickSearch('编程教程')">编程教程</span>
+                <span class="search-tag" onclick="quickSearch('最新资讯')">最新资讯</span>
+                <span class="search-tag" onclick="quickSearch('技术分享')">技术分享</span>
+                <span class="search-tag" onclick="quickSearch('产品设计')">产品设计</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- 微信群二维码区域 -->
+    <section class="container-fluid" id="wechat">
+        <div class="wechat-section">
+            <h2 class="section-title">加入我们的微信群</h2>
+            <p class="section-subtitle">扫描二维码，加入专业交流群，与行业精英一起成长</p>
+            
+            <div class="qr-grid">
+                <div class="qr-card">
+                    <div class="qr-image">
+                        <img src="https://picsum.photos/seed/tech-qr/180/180.jpg" alt="技术交流群二维码">
+                    </div>
+                    <h3 class="qr-title">微信公众号</h3>
+                    <p class="qr-description"></p>
+                </div>
+                
+                <div class="qr-card">
+                    <div class="qr-image">
+                        <img src="https://picsum.photos/seed/design-qr/180/180.jpg" alt="产品设计群二维码">
+                    </div>
+                    <h3 class="qr-title">微信小程序</h3>
+                    <p class="qr-description"></p>
+                </div>
+                
+                <div class="qr-card">
+                    <div class="qr-image">
+                        <img src="https://picsum.photos/seed/startup-qr/180/180.jpg" alt="创业交流群二维码">
+                    </div>
+                    <h3 class="qr-title">企业微信群</h3>
+                    <p class="qr-description"></p>
+                </div>
+                
+                <div class="qr-card">
+                    <div class="qr-image">
+                        <img src="https://picsum.photos/seed/ai-qr/180/180.jpg" alt="AI学习群二维码">
+                    </div>
+                    <h3 class="qr-title">阿里云网盘</h3>
+                    <p class="qr-description"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                
+                <div class="icp-info">
+                    <p>&copy; 2024 Wsyxz.com. All rights reserved.</p>
+                    <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备2025144109号-17</a> | <a href="http://www.beian.gov.cn/portal/registerSystemInfo" target="_blank" rel="noopener">鲁公网安备37130202372681号</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://unpkg.com/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script>
+    <!-- Element UI JS -->
+    <script src="https://unpkg.com/element-ui@2.15.14/lib/index.js"></script>
+    
+    <script>
+        // 搜索功能
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput.value.trim();
+            
+            if (query) {
+                // 这里可以接入实际的搜索API
+                console.log('搜索内容：', query);
+                
+                // 使用Element UI的消息提示
+                if (typeof ELEMENT !== 'undefined') {
+                    ELEMENT.Message({
+                        message: `正在搜索: ${query}`,
+                        type: 'info',
+                        duration: 2000
+                    });
+                } else {
+                    alert(`正在搜索: ${query}`);
+                }
+                
+                // 模拟搜索跳转
+                setTimeout(() => {
+                    console.log('跳转到搜索结果页面...');
+                }, 1000);
+            }
+        }
+
+        // 快速搜索
+        function quickSearch(keyword) {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.value = keyword;
+            performSearch();
+        }
+
+        // 回车键搜索
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // 页面加载完成后的动画
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // 二维码卡片点击效果
+            document.querySelectorAll('.qr-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('.qr-title').textContent;
+                    if (typeof ELEMENT !== 'undefined') {
+                        ELEMENT.Message({
+                            message: `请扫描${title}二维码加入`,
+                            type: 'success',
+                            duration: 3000
+                        });
+                    }
+                });
+            });
+
+            // 搜索框聚焦效果
+            const searchBox = document.querySelector('.search-box');
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('focus', function() {
+                searchBox.style.transform = 'scale(1.02)';
+            });
+            
+            searchInput.addEventListener('blur', function() {
+                searchBox.style.transform = 'scale(1)';
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 导航栏激活状态管理
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.navbar-custom .nav-link[data-section]');
+            
+            function updateActiveNav() {
+                const sections = document.querySelectorAll('section[id], main[id]');
+                const scrollPos = window.scrollY + 100;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('data-section') === sectionId) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', updateActiveNav);
+            updateActiveNav(); // 初始化激活状态
+            
+            // 移动端菜单关闭功能
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 991.98) {
+                        navbarToggler.click();
+                    }
+                });
+            });
+        });
+
+        // Vue实例（可选，用于更复杂的交互）
+        if (typeof Vue !== 'undefined') {
+            new Vue({
+                el: '#app',
+                data: {
+                    searchQuery: '',
+                    hotSearches: ['人工智能', '编程教程', '最新资讯', '技术分享', '产品设计']
+                },
+                methods: {
+                    search() {
+                        if (this.searchQuery.trim()) {
+                            console.log('Vue搜索：', this.searchQuery);
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
